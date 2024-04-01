@@ -11,6 +11,7 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "hardhat/console.sol";
 
 error Raffle_notEnoughEthEntered();
 error Raffle_TransferFailed();
@@ -173,5 +174,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     function getRequestConfirmations() public pure returns (uint256) {
         return REQUEST_CONFIRMATIONS;
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
     }
 }
