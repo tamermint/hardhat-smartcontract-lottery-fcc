@@ -35,3 +35,8 @@ Then in deploy script :
         networkConfig[chainId]["interval"],
     ]
 ```
+
+- Solidity coverage needs to be update to 0.8.0 :
+```json
+  "solidity-coverage": "^0.8.0"
+```
