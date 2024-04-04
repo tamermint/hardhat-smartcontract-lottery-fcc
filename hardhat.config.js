@@ -9,9 +9,11 @@ require("dotenv").config()
 const SEPOLIA_RPC_URL =
     process.env.SEPOLIA_RPC_URL ||
     "https://eth-sepolia.g.alchemy.com/v2/bKBDD7WLPKM4bWKh52RJoH8AHWwW-7SR"
-const PRIVATE_KEY = process.env.PRIVATE_KEY
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
-const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY
+const PRIVATE_KEY =
+    process.env.PRIVATE_KEY || "7ba3cd2ec0a37dd61cbf9055423646d49db40fb1df723b8b48270fe62b371883"
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "GQCFWZYCHZNS9ADST63E78JVEQYMCVVNZW"
+const COINMARKETCAP_API_KEY =
+    process.env.COINMARKETCAP_API_KEY || "2a2bced9-fe22-40c7-8d51-3d8df28fef13"
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -29,8 +31,23 @@ module.exports = {
             accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
             saveDeployments: true,
             chainId: 11155111,
-            blockConfirmations: 6,
         },
+    },
+    etherscan: {
+        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+        apiKey: {
+            sepolia: ETHERSCAN_API_KEY,
+        },
+        customChains: [
+            {
+                network: "sepolia",
+                chainId: 11155111,
+                urls: {
+                    apiURL: "https://api-sepolia.etherscan.io/api",
+                    browserURL: "https://sepolia.etherscan.io/",
+                },
+            },
+        ],
     },
     gasReporter: {
         enabled: false,
