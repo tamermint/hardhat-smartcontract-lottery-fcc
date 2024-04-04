@@ -48,4 +48,7 @@ module.exports = {
             default: 1,
         },
     },
+    mocha: {
+        timeout: 400000, //to check for test if event gets fired within 200 secs otherwise test fails
+    },
 }
