@@ -16,8 +16,11 @@ developmentChains.includes(network.name)
           describe("fulfillRandomWords", function () {
               it("works with live chainlink Keepers and Chainlink VRF, we get a random winner", async function () {
                   // enter the raffle
+                  console.log("Setting up test!")
                   const startingTimeStamp = await raffle.getLatestTimeStamp()
                   const accounts = await ethers.getSigners()
+
+                  console.log("Setting up listener...")
                   await new Promise(async (resolve, reject) => {
                       raffle.once("WinnerPicked", async () => {
                           console.log("Winner Picked event fired!")
@@ -40,11 +43,11 @@ developmentChains.includes(network.name)
                               reject(e)
                           }
                       })
-                      await raffle.enterRaffle({ value: raffleEntranceFee })
+                      console.log("Entering raffle...")
+                      const tx = await raffle.enterRaffle({ value: raffleEntranceFee })
+                      await tx.wait(1)
                       const winnerStartingBalance = await accounts[0].getBalance()
                   })
-
-                  //need to setup listener before entering raffle incase blockchain moves fast
               })
           })
       })
