@@ -20,7 +20,6 @@ async function updateContractAddresses() {
     const raffle = await ethers.getContract("Raffle")
     const contractAddresses = JSON.parse(fs.readFileSync(FRONT_END_CONTRACTS_FILE, "utf8"))
     if (network.config.chainId.toString() in contractAddresses) {
-        console.log("chainID is in contractAddresses")
         if (!contractAddresses[network.config.chainId.toString()].includes(raffle.address)) {
             contractAddresses[network.config.chainId.toString()] = raffle.address
         } else {
